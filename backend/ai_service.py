@@ -29,6 +29,10 @@ class OfferForgeAI:
     ) -> GeneratedOffer:
         """Generate complete offer using OpenAI based on brief and pain research"""
         
+        # Verificar se cliente OpenAI está disponível
+        if not self.client:
+            raise Exception("OpenAI não configurado - Execute no Railway para funcionalidade completa")
+        
         # Prepare context for AI
         niche_context = brief.niche
         avatar_context = f"Avatar targeting, price point: {brief.currency} {brief.target_price}"
