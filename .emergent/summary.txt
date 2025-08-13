@@ -1,0 +1,81 @@
+<analysis>
+The previous AI engineer successfully developed OfferForge, a mobile-first Expo application from scratch, progressing through five major development phases. The core functionality, including AI-powered content generation for marketing materials (headlines, VSL scripts, email sequences, social posts), landing page generation, and export features (ZIP, PDF, HTML, JSON), is complete and extensively tested, achieving high success rates (95-100% in various tests). Stripe integration for price suggestions and market analysis is also fully implemented using live keys provided by the user.
+
+The development workflow was highly structured, involving detailed planning, phased implementation, and rigorous backend and frontend testing. A  file was actively maintained to document progress. The current challenge revolves around deployment: initially, the AI engineer struggled with GitHub's secret push protection due to API keys being in the Git history, leading to an attempt to re-initialize the repository. Subsequently, the focus shifted to deploying the application to Railway.app, where the engineer is currently addressing multi-service configuration issues. The user also inquired about mobile app access via Expo Go and eventual app store deployment, which the engineer explained in detail.
+</analysis>
+
+<product_requirements>
+The user requested a mobile-first Expo app named OfferForge for creators and affiliates. The core functionality includes:
+1.  **Product Brief Flow**: Capture niche, avatar, promise, and target price.
+2.  **Pain Research**: Manual input and CSV paste for collecting reviews/FAQs.
+3.  **Offer Generation**: AI-powered generation of headlines, promises, proof, bonuses, and guarantees.
+4.  **Material Generation**: Sales page (exportable HTML), VSL script (up to 90s), 5-email sequence, and 6 social posts in 3 formats.
+5.  **Export Functionality**: HTML/ZIP, PDF, and webhooks for all generated materials.
+6.  **Integrations**: Stripe/Mercado Pago for price suggestions, MailerLite/Brevo for list import (API fallback to webhook/email export if not available), Webhooks.
+7.  **Metrics**: Track page completion rate, simulated CTR, time-to-first-asset, wizard completion rate.
+8.  **Multi-language**: Support for pt-BR and en-US.
+9.  **Security**: Versioning and backups.
+
+The initial MVP scope focused on a lean end-to-end flow, starting with Stripe integration in test mode and later moving to live keys for both OpenAI and Stripe. The app needed to be production-ready with a professional mobile-first UI/UX.
+</product_requirements>
+
+<key_technical_concepts>
+-   **Frontend**: Expo, Expo Router (file-based routing), React Native, React Navigation, React Hook Form, @shopify/flash-list, Zustand/Redux Toolkit (state management).
+-   **Backend**: FastAPI, MongoDB (via PyMongo), Python  for environment variables, OpenAI API for AI content generation, Stripe API for payment integration and market analysis.
+-   **Deployment**: GitHub, Railway.app (for multi-service deployment: Python backend, Node.js/Expo frontend).
+</key_technical_concepts>
+
+<code_architecture>
+The application follows a full-stack architecture with an Expo frontend, a FastAPI backend, and a MongoDB database.
+
+
+
+-   ****: Contains the FastAPI backend code.
+    -   : The main FastAPI application, exposing API endpoints for health checks, project management, AI content generation, landing page generation, and export functionalities. It integrates with , , and .
+    -   : Handles MongoDB connection and CRUD operations for the application's data models (Projects, Avatars, Offers, Assets).
+    -   : Defines the Pydantic models for data validation and serialization/deserialization with MongoDB.
+    -   : Encapsulates the logic for interacting with the OpenAI API to generate marketing content (headlines, VSL scripts, emails, social posts). This file was crucial for the AI-powered aspects.
+    -   : Implements the logic for generating mobile-first HTML landing page templates, injecting dynamic content, and handling various export formats (ZIP, PDF, HTML, JSON). This also includes Stripe integration for price analysis.
+    -    and : Stores and provides examples for environment variables, including , , , and . These were modified to hold live keys and then removed from  and placed in  to prevent accidental commits of secrets.
+    -   : Added for Railway.app to build the backend service.
+-   ****: Contains the Expo React Native application.
+    -   : The primary entry point and initial screen of the Expo Router application, displaying the system status and a list of projects.
+    -   : Defines the overall layout and navigation structure of the Expo app.
+    -   : A newly created screen to demonstrate the complete end-to-end workflow of the OfferForge application.
+    -   : A dynamic route to display detailed information for a specific project, including generated offers, materials, and export options.
+    -   : A reusable component for displaying project summaries on the homepage.
+    -   : Likely a component or screen that visualizes the generated offer details.
+    -   : Implements the multi-step form for creating new projects, including product brief, avatar definition, and pain research. This integrates with the AI backend.
+    -   : Added for Railway.app to build the frontend service.
+-   ****: A markdown file created to meticulously track all development progress, completed phases, and new features.
+-   ****: Configured to exclude sensitive files like , , and logs from version control, especially critical for protecting API keys.
+-   ** and **: Documentation added to explain the project and guide local setup.
+-   ** and **: Configuration files added to guide Railway.app in deploying the multi-service application, specifying how to build and run both the backend and frontend services.
+</code_architecture>
+
+<pending_tasks>
+-   **Phase 6: Advanced Features**:
+    -   Template library system.
+    -   A/B testing for offers.
+    -   Enhanced analytics dashboard.
+    -   Advanced export options.
+-   **Integrations**: MailerLite/Brevo integration for importing lists.
+-   **Railway Deployment**: Finalize and resolve the Railway.app deployment issues.
+</pending_tasks>
+
+<current_work>
+The immediate work is focused on resolving deployment issues, specifically with Railway.app. The user attempted to deploy the application to Railway and encountered an error. The AI engineer has identified the problem as Railway's inability to automatically build a multi-service project (FastAPI backend and Expo frontend).
+
+To address this, the AI engineer has already:
+1.  Created  to define the services and their build/start commands for Railway.
+2.  Created  for more granular control over the build environment.
+3.  Added s to both  and  directories to provide explicit build instructions for each service.
+4.  Performed a Reinitialized existing Git repository in /app/.git/, , On branch master
+nothing to commit, working tree clean, and  to create a clean Git history, attempting to resolve prior issues with secret API keys being present in commits.
+
+The last message indicates the user reiterating to fix the Railway app issue so I can deploy to the platform, and the AI engineer confirming they will completely correct the Railway configuration. This implies the current state is mid-configuration/troubleshooting for Railway deployment. The core application is functional; the current hurdle is making it deployable.
+</current_work>
+
+<optional_next_step>
+Finalize and test the Railway.app deployment configuration to ensure both the backend and frontend services deploy and run successfully on the platform.
+</optional_next_step>
