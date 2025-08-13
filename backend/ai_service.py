@@ -15,8 +15,11 @@ class OfferForgeAI:
     def __init__(self):
         api_key = os.getenv('OPENAI_API_KEY')
         if not api_key:
-            raise ValueError("OPENAI_API_KEY not found in environment variables")
-        self.client = openai.OpenAI(api_key=api_key)
+            # Para desenvolvimento local sem API key
+            print("⚠️ OPENAI_API_KEY não encontrada - modo desenvolvimento")
+            self.client = None
+        else:
+            self.client = openai.OpenAI(api_key=api_key)
         
     async def generate_offer(
         self, 
