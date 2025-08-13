@@ -91,6 +91,10 @@ export default function Index() {
     router.push('/demo');
   };
 
+  const handleViewAutoDemo = () => {
+    router.push('/auto-demo');
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'draft': return '#6c757d';
