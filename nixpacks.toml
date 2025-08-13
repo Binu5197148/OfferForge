@@ -1,0 +1,11 @@
+[phases.setup]
+cmd = "mkdir -p /opt/venv && python -m venv /opt/venv && . /opt/venv/bin/activate"
+
+[phases.install]
+cmd = ". /opt/venv/bin/activate && cd backend && pip install -r requirements.txt"
+
+[phases.build]
+cmd = ". /opt/venv/bin/activate"
+
+[start]
+cmd = ". /opt/venv/bin/activate && cd backend && uvicorn server:app --host 0.0.0.0 --port $PORT"
