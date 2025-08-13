@@ -393,10 +393,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Railway Deployment Configuration"
-    - "Basic API Setup and MongoDB Integration"
-    - "OpenAI Integration Setup"
-    - "Enhanced Stripe Integration with Market Analysis (Phase 3)"
+    - "AutoDemo Frontend Implementation"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
