@@ -224,6 +224,8 @@ Em quanto tempo posso ver os primeiros resultados?`
 
   // API Functions
   const createProject = async () => {
+    console.log('🚀 Iniciando criação do projeto...');
+    
     // Criar projeto
     const projectData = {
       name: `AutoDemo: ${projectBrief.niche}`,
@@ -231,14 +233,20 @@ Em quanto tempo posso ver os primeiros resultados?`
       language: 'pt-BR'
     };
 
+    console.log('📡 Enviando dados do projeto:', projectData);
+
     const projectResponse = await fetch(`${BACKEND_URL}/api/projects`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(projectData)
     });
 
+    console.log('📥 Resposta do projeto:', projectResponse.status, projectResponse.ok);
+
     if (!projectResponse.ok) throw new Error('Falha ao criar projeto');
     const project = await projectResponse.json();
+
+    console.log('✅ Projeto criado:', project._id);
 
     // Adicionar brief e pain research
     const briefData = {
@@ -262,6 +270,8 @@ Em quanto tempo posso ver os primeiros resultados?`
       manual_input: projectBrief.painPoints
     };
 
+    console.log('📡 Atualizando projeto com brief e pain research...');
+
     const updateResponse = await fetch(`${BACKEND_URL}/api/projects/${project._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -272,8 +282,12 @@ Em quanto tempo posso ver os primeiros resultados?`
       })
     });
 
+    console.log('📥 Resposta da atualização:', updateResponse.status, updateResponse.ok);
+
     if (!updateResponse.ok) throw new Error('Falha ao atualizar projeto');
     const updatedProject = await updateResponse.json();
+    
+    console.log('✅ Projeto atualizado:', updatedProject._id, updatedProject.status);
     
     return {
       name: updatedProject.name,
