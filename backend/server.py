@@ -35,7 +35,8 @@ STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 
 # Initialize external services
 if OPENAI_API_KEY:
-    openai.api_key = OPENAI_API_KEY
+    # Note: OpenAI client initialization is handled in ai_service.py
+    pass
 
 if STRIPE_SECRET_KEY:
     stripe.api_key = STRIPE_SECRET_KEY
