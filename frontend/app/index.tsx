@@ -243,13 +243,27 @@ export default function Index() {
             <TouchableOpacity style={styles.actionCard} onPress={handleViewDemo}>
               <Ionicons name="play-circle" size={32} color="#007AFF" />
               <Text style={styles.actionTitle}>Demo</Text>
-              <Text style={styles.actionSubtitle}>Demonstração completa</Text>
+              <Text style={styles.actionSubtitle}>Demonstração passo a passo</Text>
             </TouchableOpacity>
             
+            <TouchableOpacity style={styles.actionCard} onPress={handleViewAutoDemo}>
+              <Ionicons name="rocket" size={32} color="#ff6b35" />
+              <Text style={styles.actionTitle}>AutoDemo</Text>
+              <Text style={styles.actionSubtitle}>Processo 100% automatizado</Text>
+            </TouchableOpacity>
+          </View>
+          
+          <View style={styles.actionGrid}>
             <TouchableOpacity style={styles.actionCard}>
               <Ionicons name="analytics" size={32} color="#28a745" />
               <Text style={styles.actionTitle}>Métricas</Text>
               <Text style={styles.actionSubtitle}>Performance dos projetos</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.actionCard}>
+              <Ionicons name="library" size={32} color="#6f42c1" />
+              <Text style={styles.actionTitle}>Biblioteca</Text>
+              <Text style={styles.actionSubtitle}>Templates e recursos</Text>
             </TouchableOpacity>
           </View>
         </View>
