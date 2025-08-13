@@ -1,5 +1,6 @@
 import openai
 import os
+from dotenv import load_dotenv
 from typing import Dict, List, Optional
 from models import (
     ProductBrief, PainResearch, GeneratedOffer, 
@@ -7,9 +8,15 @@ from models import (
     LanguageEnum
 )
 
+# Load environment variables
+load_dotenv()
+
 class OfferForgeAI:
     def __init__(self):
-        self.client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+        api_key = os.getenv('OPENAI_API_KEY')
+        if not api_key:
+            raise ValueError("OPENAI_API_KEY not found in environment variables")
+        self.client = openai.OpenAI(api_key=api_key)
         
     async def generate_offer(
         self, 
