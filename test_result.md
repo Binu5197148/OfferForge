@@ -375,12 +375,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Homepage and Basic UI"
-    - "Multi-Step Project Creation"
-    - "Project Detail Screen (Phase 4)"
-    - "Navigation & User Flow"
-    - "Mobile UX Excellence"
-    - "Real Backend Integration"
+    - "Railway Deployment Configuration"
+    - "Basic API Setup and MongoDB Integration"
+    - "OpenAI Integration Setup"
+    - "Enhanced Stripe Integration with Market Analysis (Phase 3)"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
