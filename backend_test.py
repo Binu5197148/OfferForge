@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration
-BACKEND_URL = "https://marketing-ai-6.preview.emergentagent.com/api"
+BACKEND_URL = "https://22b83e1c-19ea-40a3-b3e6-45bbb7cd62e9.preview.emergentagent.com/api"
 
 class OfferForgeAPITester:
     def __init__(self, base_url: str):
