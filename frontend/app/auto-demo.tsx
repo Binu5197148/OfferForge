@@ -274,23 +274,29 @@ Em quanto tempo posso ver os primeiros resultados?`
 
     if (!updateResponse.ok) throw new Error('Falha ao atualizar projeto');
     const updatedProject = await updateResponse.json();
-    setDemoProject(updatedProject);
     
     return {
       name: updatedProject.name,
       id: updatedProject._id,
-      status: updatedProject.status
+      status: updatedProject.status,
+      projectData: updatedProject // Incluir dados completos do projeto
     };
   };
 
-  const generateOffer = async () => {
-    if (!demoProject) throw new Error('Projeto não encontrado');
+  const generateOffer = async (project) => {
+    if (!project) throw new Error('Projeto não encontrado');
 
-    const response = await fetch(`${BACKEND_URL}/api/generate/offer/${demoProject._id}`, {
+    console.log('Gerando oferta para projeto:', project._id);
+
+    const response = await fetch(`${BACKEND_URL}/api/generate/offer/${project._id}`, {
       method: 'POST'
     });
 
-    if (!response.ok) throw new Error('Falha ao gerar oferta');
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Falha ao gerar oferta: ${errorText}`);
+    }
+    
     const result = await response.json();
     
     if (!result.success) throw new Error('IA falhou ao gerar oferta');
@@ -302,16 +308,20 @@ Em quanto tempo posso ver os primeiros resultados?`
     };
   };
 
-  const generateMaterials = async () => {
-    if (!demoProject) throw new Error('Projeto não encontrado');
+  const generateMaterials = async (project) => {
+    if (!project) throw new Error('Projeto não encontrado');
 
-    const response = await fetch(`${BACKEND_URL}/api/generate/materials/${demoProject._id}`, {
+    const response = await fetch(`${BACKEND_URL}/api/generate/materials/${project._id}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(['vsl', 'emails', 'social'])
     });
 
-    if (!response.ok) throw new Error('Falha ao gerar materiais');
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Falha ao gerar materiais: ${errorText}`);
+    }
+    
     const result = await response.json();
     
     if (!result.success) throw new Error('IA falhou ao gerar materiais');
@@ -323,14 +333,18 @@ Em quanto tempo posso ver os primeiros resultados?`
     };
   };
 
-  const generateLandingPage = async () => {
-    if (!demoProject) throw new Error('Projeto não encontrado');
+  const generateLandingPage = async (project) => {
+    if (!project) throw new Error('Projeto não encontrado');
 
-    const response = await fetch(`${BACKEND_URL}/api/generate/landing-page/${demoProject._id}`, {
+    const response = await fetch(`${BACKEND_URL}/api/generate/landing-page/${project._id}`, {
       method: 'POST'
     });
 
-    if (!response.ok) throw new Error('Falha ao gerar landing page');
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Falha ao gerar landing page: ${errorText}`);
+    }
+    
     const result = await response.json();
     
     if (!result.success) throw new Error('IA falhou ao gerar landing page');
@@ -341,16 +355,16 @@ Em quanto tempo posso ver os primeiros resultados?`
     };
   };
 
-  const exportAll = async () => {
-    if (!demoProject) throw new Error('Projeto não encontrado');
+  const exportAll = async (project) => {
+    if (!project) throw new Error('Projeto não encontrado');
 
     const exports = [];
     
     // Export ZIP
-    const zipResponse = await fetch(`${BACKEND_URL}/api/export/${demoProject._id}`, {
+    const zipResponse = await fetch(`${BACKEND_URL}/api/export/${project._id}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ project_id: demoProject._id, export_type: 'zip', include_assets: true })
+      body: JSON.stringify({ project_id: project._id, export_type: 'zip', include_assets: true })
     });
     
     if (zipResponse.ok) {
@@ -359,10 +373,10 @@ Em quanto tempo posso ver os primeiros resultados?`
     }
 
     // Export PDF
-    const pdfResponse = await fetch(`${BACKEND_URL}/api/export/${demoProject._id}`, {
+    const pdfResponse = await fetch(`${BACKEND_URL}/api/export/${project._id}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ project_id: demoProject._id, export_type: 'pdf', include_assets: true })
+      body: JSON.stringify({ project_id: project._id, export_type: 'pdf', include_assets: true })
     });
     
     if (pdfResponse.ok) {
