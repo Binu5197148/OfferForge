@@ -143,6 +143,7 @@ Em quanto tempo posso ver os primeiros resultados?`
     setIsRunning(true);
     
     const enabledSteps = autoSteps.filter(step => step.enabled);
+    let currentProject = null; // Manter referência local do projeto
     
     try {
       for (let i = 0; i < enabledSteps.length; i++) {
@@ -162,18 +163,20 @@ Em quanto tempo posso ver os primeiros resultados?`
           switch (step.id) {
             case 'project':
               result = await createProject();
+              currentProject = result.projectData; // Salvar referência local
+              setDemoProject(currentProject); // Atualizar estado
               break;
             case 'offer':
-              result = await generateOffer();
+              result = await generateOffer(currentProject); // Passar projeto diretamente
               break;
             case 'materials':
-              result = await generateMaterials();
+              result = await generateMaterials(currentProject);
               break;
             case 'landing':
-              result = await generateLandingPage();
+              result = await generateLandingPage(currentProject);
               break;
             case 'export':
-              result = await exportAll();
+              result = await exportAll(currentProject);
               break;
           }
 
