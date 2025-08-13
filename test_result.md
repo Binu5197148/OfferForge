@@ -105,6 +105,18 @@
 user_problem_statement: "Build OfferForge - a mobile-first app for creators and affiliates with complete end-to-end workflow: product brief, pain research, offer generation, and materials (landing page, VSL, emails, social content). Includes OpenAI integration, Stripe integration, export system, and multi-language support (pt-BR/en-US)."
 
 backend:
+  - task: "Railway Deployment Configuration"
+    implemented: true
+    working: false
+    file: "railway.json, nixpacks.toml, backend/Dockerfile"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "Fixed Railway deployment configuration issues. Updated railway.json for proper build commands, simplified nixpacks.toml, created proper Dockerfile with port handling, and comprehensive deployment guide. Ready for backend testing to validate configuration before deployment."
+
   - task: "Basic API Setup and MongoDB Integration"
     implemented: true
     working: true
